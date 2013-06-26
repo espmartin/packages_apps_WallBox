@@ -34,85 +34,85 @@ import com.lithidsw.wallbox.utils.Utils;
 
 public class DownloadReceiver extends BroadcastReceiver {
 
-	private static final String EXTRA_DOWNLOAD_ID = DownloadManager.EXTRA_DOWNLOAD_ID;
-	private static final String COLUMN_STATUS = DownloadManager.COLUMN_STATUS;
-	private static final int STATUS_SUCCESSFUL = DownloadManager.STATUS_SUCCESSFUL;
+    private static final String EXTRA_DOWNLOAD_ID = DownloadManager.EXTRA_DOWNLOAD_ID;
+    private static final String COLUMN_STATUS = DownloadManager.COLUMN_STATUS;
+    private static final int STATUS_SUCCESSFUL = DownloadManager.STATUS_SUCCESSFUL;
 
-	private DownloadManager dm = null;
-	private LocalDataSource mDataSource;
-	long downloadId;
+    private DownloadManager dm = null;
+    private LocalDataSource mDataSource;
+    long downloadId;
 
-	private DownloadManager.Query query = null;
-	private Cursor cursor = null;
+    private DownloadManager.Query query = null;
+    private Cursor cursor = null;
 
-	@Override
-	public void onReceive(Context context, Intent intent) {
-		String action = intent.getAction();
-		dm = (DownloadManager) context
-				.getSystemService(Context.DOWNLOAD_SERVICE);
-		if (DownloadManager.ACTION_DOWNLOAD_COMPLETE.equals(action)) {
-			downloadId = intent.getLongExtra(EXTRA_DOWNLOAD_ID, 0);
-			try {
-				mDataSource = new LocalDataSource(context);
-				mDataSource.open();
-				if (mDataSource.isQueueItem(Long.toString(downloadId))) {
-					query = new DownloadManager.Query();
-					query.setFilterById(downloadId);
-					cursor = dm.query(query);
-					if (cursor.moveToFirst()) {
-						int columnIndex = cursor.getColumnIndex(COLUMN_STATUS);
-						if (STATUS_SUCCESSFUL == cursor.getInt(columnIndex)) {
-							String[] items = mDataSource
-									.getItemsFromQueueId(Long
-											.toString(downloadId));
-							if (items[0] != null && items[1] != null && items[2] != null) {
-								showNoti(context, Integer.parseInt(items[0]), items[1], items[2]);
-							} else {
-								errorToast(context,
-										R.string.toast_notification_error);
-							}
-						}
-					}
-				} else {
-					errorToast(context, R.string.toast_download_unsuccessful);
-				}
-			} finally {
-				cursor.close();
-				mDataSource.close();
-			}
-		}
-	}
+    @Override
+    public void onReceive(Context context, Intent intent) {
+        String action = intent.getAction();
+        dm = (DownloadManager) context
+                .getSystemService(Context.DOWNLOAD_SERVICE);
+        if (DownloadManager.ACTION_DOWNLOAD_COMPLETE.equals(action)) {
+            downloadId = intent.getLongExtra(EXTRA_DOWNLOAD_ID, 0);
+            try {
+                mDataSource = new LocalDataSource(context);
+                mDataSource.open();
+                if (mDataSource.isQueueItem(Long.toString(downloadId))) {
+                    query = new DownloadManager.Query();
+                    query.setFilterById(downloadId);
+                    cursor = dm.query(query);
+                    if (cursor.moveToFirst()) {
+                        int columnIndex = cursor.getColumnIndex(COLUMN_STATUS);
+                        if (STATUS_SUCCESSFUL == cursor.getInt(columnIndex)) {
+                            String[] items = mDataSource
+                                    .getItemsFromQueueId(Long
+                                            .toString(downloadId));
+                            if (items[0] != null && items[1] != null && items[2] != null) {
+                                showNoti(context, Integer.parseInt(items[0]), items[1], items[2]);
+                            } else {
+                                errorToast(context,
+                                        R.string.toast_notification_error);
+                            }
+                        }
+                    }
+                } else {
+                    errorToast(context, R.string.toast_download_unsuccessful);
+                }
+            } finally {
+                cursor.close();
+                mDataSource.close();
+            }
+        }
+    }
 
-	private void showNoti(Context c, int id, String name, String uri) {
+    private void showNoti(Context c, int id, String name, String uri) {
 
-		NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(c)
-				.setSmallIcon(R.drawable.ic_launcher)
-				.setContentTitle(name)
-				.setContentText(c.getString(R.string.app_name))
-				.addAction(R.drawable.ic_action_picture,
-						c.getString(R.string.apply),
-						getPendingIntent(c, name, uri, id));
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(c)
+                .setSmallIcon(R.drawable.ic_launcher)
+                .setContentTitle(name)
+                .setContentText(c.getString(R.string.app_name))
+                .addAction(R.drawable.ic_action_picture,
+                        c.getString(R.string.apply),
+                        getPendingIntent(c, name, uri, id));
 
-		NotificationCompat.BigPictureStyle bigStyle = new NotificationCompat.BigPictureStyle()
-				.bigPicture(BitmapFactory.decodeFile(uri));
-		mBuilder.setAutoCancel(true);
-		mBuilder.setStyle(bigStyle);
+        NotificationCompat.BigPictureStyle bigStyle = new NotificationCompat.BigPictureStyle()
+                .bigPicture(BitmapFactory.decodeFile(uri));
+        mBuilder.setAutoCancel(true);
+        mBuilder.setStyle(bigStyle);
 
-		Intent intent = new Intent(c, WallpaperFragment.class);
-		PendingIntent resultPendingIntent = PendingIntent.getActivity(c, 0, intent, 0);
-		mBuilder.setContentIntent(resultPendingIntent);
+        Intent intent = new Intent(c, WallpaperFragment.class);
+        PendingIntent resultPendingIntent = PendingIntent.getActivity(c, 0, intent, 0);
+        mBuilder.setContentIntent(resultPendingIntent);
 
-		NotificationManager mNotificationManager = (NotificationManager) 
-				c.getSystemService(Context.NOTIFICATION_SERVICE);
-		mNotificationManager.notify(id, mBuilder.build());
-	}
+        NotificationManager mNotificationManager = (NotificationManager)
+                c.getSystemService(Context.NOTIFICATION_SERVICE);
+        mNotificationManager.notify(id, mBuilder.build());
+    }
 
-	private void errorToast(Context context, int i) {
-		Toast.makeText(context, context.getString(i), Toast.LENGTH_LONG).show();
-	}
+    private void errorToast(Context context, int i) {
+        Toast.makeText(context, context.getString(i), Toast.LENGTH_LONG).show();
+    }
 
-	public PendingIntent getPendingIntent(Context c, String name, String path, int id) {
-		Intent intent = new Utils(c).getWallpaperApplyIntent(name, path, id);
-		return PendingIntent.getActivity(c, id, intent, 0);
-	}
+    public PendingIntent getPendingIntent(Context c, String name, String path, int id) {
+        Intent intent = new Utils(c).getWallpaperApplyIntent(name, path, id);
+        return PendingIntent.getActivity(c, id, intent, 0);
+    }
 }

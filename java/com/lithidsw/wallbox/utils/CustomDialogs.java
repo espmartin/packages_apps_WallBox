@@ -16,25 +16,25 @@
 
 package com.lithidsw.wallbox.utils;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.app.AlertDialog;
 
 import com.lithidsw.wallbox.R;
 
 public class CustomDialogs {
 
-	public void openFirstDialog(Context context, String title, String message) {
-		new AlertDialog.Builder(context)
-				.setTitle(title)
-				.setMessage(message)
-				.setCancelable(false)
-				.setNegativeButton(context.getResources().getString(R.string.close),
-						new DialogInterface.OnClickListener() {
-							@Override
-							public void onClick(DialogInterface dialog,
-									int whichButton) {
-							}
-						}).show();
-	}
+    public void openFirstDialog(Context context, String title, String message) {
+        new AlertDialog.Builder(context)
+                .setTitle(title)
+                .setMessage(message)
+                .setCancelable(false)
+                .setNegativeButton(context.getResources().getString(R.string.close),
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog,
+                                                int whichButton) {
+                            }
+                        }).show();
+    }
 }

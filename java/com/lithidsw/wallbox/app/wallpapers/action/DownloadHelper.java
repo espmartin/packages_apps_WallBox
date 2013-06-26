@@ -16,7 +16,6 @@
 
 package com.lithidsw.wallbox.app.wallpapers.action;
 
-import java.io.File;
 import android.app.Activity;
 import android.app.DownloadManager;
 import android.content.Context;
@@ -27,45 +26,47 @@ import com.lithidsw.wallbox.app.wallpapers.db.LocalDataSource;
 import com.lithidsw.wallbox.utils.C;
 import com.lithidsw.wallbox.utils.Utils;
 
+import java.io.File;
+
 public class DownloadHelper {
 
-	Activity a;
-	private LocalDataSource datasource;
-	Utils mUtils;
-	
-	public DownloadHelper(Activity act) {
-		a = act;
+    Activity a;
+    private LocalDataSource datasource;
+    Utils mUtils;
+
+    public DownloadHelper(Activity act) {
+        a = act;
         mUtils = new Utils(a);
-	}
+    }
 
-	public void startDownload(String url, String name, String author, int id) {
-		datasource = new LocalDataSource(a);
+    public void startDownload(String url, String name, String author, int id) {
+        datasource = new LocalDataSource(a);
 
-		final String filename = url.substring(url.lastIndexOf('/') + 1, url.length());
+        final String filename = url.substring(url.lastIndexOf('/') + 1, url.length());
 
-		final File cache = mUtils.getExternalDir();
-		if (!cache.exists()) {
-			cache.mkdirs();
-		}
+        final File cache = mUtils.getExternalDir();
+        if (!cache.exists()) {
+            cache.mkdirs();
+        }
 
-		final String path = cache + "/" + filename;
-		File check = new File(path);
+        final String path = cache + "/" + filename;
+        File check = new File(path);
 
-		if (!check.exists()) {
-			DownloadManager.Request request;
-			request = new DownloadManager.Request(Uri.parse(url));
-			request.setTitle(name);
-			request.setDescription("Downloading...");
-			request.setDestinationInExternalPublicDir(a.getString(R.string.app_name),filename);
-			request.setVisibleInDownloadsUi(true);
-			DownloadManager manager = (DownloadManager) a.getSystemService(Context.DOWNLOAD_SERVICE);
-			final long en = manager.enqueue(request);
+        if (!check.exists()) {
+            DownloadManager.Request request;
+            request = new DownloadManager.Request(Uri.parse(url));
+            request.setTitle(name);
+            request.setDescription("Downloading...");
+            request.setDestinationInExternalPublicDir(a.getString(R.string.app_name), filename);
+            request.setVisibleInDownloadsUi(true);
+            DownloadManager manager = (DownloadManager) a.getSystemService(Context.DOWNLOAD_SERVICE);
+            final long en = manager.enqueue(request);
 
-			datasource.createItem(id, name, author, path, en, 0, C.TAG_WALLPAPERS);
+            datasource.createItem(id, name, author, path, en, 0, C.TAG_WALLPAPERS);
 
-			mUtils.sendToast("Download started");
-		} else {
-			mUtils.sendToast("File: " + filename + " Exists, not downloading");
-		}
-	}
+            mUtils.sendToast("Download started");
+        } else {
+            mUtils.sendToast("File: " + filename + " Exists, not downloading");
+        }
+    }
 }

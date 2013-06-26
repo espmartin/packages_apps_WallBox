@@ -30,64 +30,64 @@ import com.lithidsw.wallbox.app.wallpapers.loader.SyncHelper;
 
 public class UpdateChecker {
 
-	private int before;
-	private int after;
+    private int before;
+    private int after;
 
-	Context c;
-	private SyncHelper mSyncHelper;
+    Context c;
+    private SyncHelper mSyncHelper;
 
-	public UpdateChecker(Context context) {
-		c = context;
+    public UpdateChecker(Context context) {
+        c = context;
         mSyncHelper = new SyncHelper(c);
-	}
+    }
 
-	public void runUpdateCheck() {
-		new checkUpdates().execute();
-	}
+    public void runUpdateCheck() {
+        new checkUpdates().execute();
+    }
 
-	class checkUpdates extends AsyncTask<String, String, Boolean> {
+    class checkUpdates extends AsyncTask<String, String, Boolean> {
 
-		@Override
-		protected Boolean doInBackground(String... arg0) {
+        @Override
+        protected Boolean doInBackground(String... arg0) {
 
-			before = 0;
-			after = 0;
-			before = new ContentDataSource(c).getWallCount();
-			boolean checked = mSyncHelper.getWallpapers();
-			if (checked) {
-				after = new ContentDataSource(c).getWallCount();
-			}
+            before = 0;
+            after = 0;
+            before = new ContentDataSource(c).getWallCount();
+            boolean checked = mSyncHelper.getWallpapers();
+            if (checked) {
+                after = new ContentDataSource(c).getWallCount();
+            }
 
-			if (after > before) {
-				return true;
-			}
-			return false;
-		}
+            if (after > before) {
+                return true;
+            }
+            return false;
+        }
 
-		@Override
-		protected void onPostExecute(Boolean bool) {
-			if (bool) {
-				showUpdateNoti();
-			}
-		}
+        @Override
+        protected void onPostExecute(Boolean bool) {
+            if (bool) {
+                showUpdateNoti();
+            }
+        }
 
-	}
+    }
 
-	public void showUpdateNoti() {
-		int math = (after - before);
-		NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(c)
-				.setSmallIcon(R.drawable.ic_launcher)
-				.setContentTitle(c.getString(R.string.app_name))
-				.setContentText(math + " new wallpapers available!");
-		mBuilder.setAutoCancel(true);
+    public void showUpdateNoti() {
+        int math = (after - before);
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(c)
+                .setSmallIcon(R.drawable.ic_launcher)
+                .setContentTitle(c.getString(R.string.app_name))
+                .setContentText(math + " new wallpapers available!");
+        mBuilder.setAutoCancel(true);
 
-		Intent resultIntent = new Intent(c, WallpaperFragment.class);
-		PendingIntent resultPendingIntent = PendingIntent.getActivity(c, 0,
-				resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-		mBuilder.setContentIntent(resultPendingIntent);
+        Intent resultIntent = new Intent(c, WallpaperFragment.class);
+        PendingIntent resultPendingIntent = PendingIntent.getActivity(c, 0,
+                resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        mBuilder.setContentIntent(resultPendingIntent);
 
-		NotificationManager nm = (NotificationManager) c
-				.getSystemService(Context.NOTIFICATION_SERVICE);
-		nm.notify(1, mBuilder.build());
-	}
+        NotificationManager nm = (NotificationManager) c
+                .getSystemService(Context.NOTIFICATION_SERVICE);
+        nm.notify(1, mBuilder.build());
+    }
 }

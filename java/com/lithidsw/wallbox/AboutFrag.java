@@ -32,7 +32,7 @@ public class AboutFrag extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         fa = super.getActivity();
-        ll = (LinearLayout)inflater.inflate(R.layout.about_frag, container, false);
+        ll = (LinearLayout) inflater.inflate(R.layout.about_frag, container, false);
         return ll;
     }
 }

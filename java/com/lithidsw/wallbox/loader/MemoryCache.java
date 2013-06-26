@@ -16,13 +16,13 @@
 
 package com.lithidsw.wallbox.loader;
 
+import android.graphics.Bitmap;
+
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
-
-import android.graphics.Bitmap;
 
 public class MemoryCache {
 

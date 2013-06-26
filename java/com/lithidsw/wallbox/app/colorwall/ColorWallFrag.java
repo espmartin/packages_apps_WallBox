@@ -30,11 +30,11 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.lithidsw.wallbox.utils.C;
-import com.lithidsw.wallbox.utils.CustomDialogs;
 import com.lithidsw.wallbox.R;
 import com.lithidsw.wallbox.colorpicker.ColorPicker;
 import com.lithidsw.wallbox.colorpicker.SVBar;
+import com.lithidsw.wallbox.utils.C;
+import com.lithidsw.wallbox.utils.CustomDialogs;
 
 import java.io.IOException;
 
@@ -54,7 +54,7 @@ public class ColorWallFrag extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         fa = super.getActivity();
         prefs = fa.getSharedPreferences(C.PREF, Context.MODE_PRIVATE);
-        ll = (LinearLayout)inflater.inflate(R.layout.colorwall_frag, container, false);
+        ll = (LinearLayout) inflater.inflate(R.layout.colorwall_frag, container, false);
         wm = WallpaperManager.getInstance(fa);
         picker = (ColorPicker) ll.findViewById(R.id.picker);
         picker.setOldCenterColor(getResources().getColor(R.color.black));

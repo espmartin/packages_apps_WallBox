@@ -35,14 +35,14 @@ import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.lithidsw.wallbox.R;
 import com.lithidsw.wallbox.utils.C;
 import com.lithidsw.wallbox.utils.CustomDialogs;
-import com.lithidsw.wallbox.R;
 import com.lithidsw.wallbox.utils.Utils;
 
 import java.util.Calendar;
 
-public class SaturateFrag extends Fragment implements View.OnClickListener{
+public class SaturateFrag extends Fragment implements View.OnClickListener {
 
     SharedPreferences prefs;
     private Utils mUtils;
@@ -61,7 +61,7 @@ public class SaturateFrag extends Fragment implements View.OnClickListener{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         fa = super.getActivity();
-        ll = (LinearLayout)inflater.inflate(R.layout.saturate_frag, container, false);
+        ll = (LinearLayout) inflater.inflate(R.layout.saturate_frag, container, false);
         ll.findViewById(R.id.button_set).setOnClickListener(this);
         prefs = fa.getSharedPreferences(C.PREF, Context.MODE_PRIVATE);
         isRunning = prefs.getBoolean(C.PREF_SATURATE_START, false);
@@ -72,7 +72,8 @@ public class SaturateFrag extends Fragment implements View.OnClickListener{
             WallpaperInfo info = wm.getWallpaperInfo();
             info.toString();
             mUtils.sendToast(getResources().getString(R.string.live_wallpaper));
-        } catch (NullPointerException ignore){}
+        } catch (NullPointerException ignore) {
+        }
         image.setImageDrawable(wm.getDrawable());
         time_text = (TextView) ll.findViewById(R.id.time_text);
         mButton = (Button) ll.findViewById(R.id.button_set);
@@ -104,7 +105,8 @@ public class SaturateFrag extends Fragment implements View.OnClickListener{
             @Override
             public void onStopTrackingTouch(SeekBar arg0) {
                 // TODO Auto-generated method stub
-            }});
+            }
+        });
 
         seek.setProgress(hour);
 

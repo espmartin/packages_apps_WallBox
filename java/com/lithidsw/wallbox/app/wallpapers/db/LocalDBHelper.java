@@ -24,63 +24,67 @@ import com.lithidsw.wallbox.utils.C;
 
 public class LocalDBHelper extends SQLiteOpenHelper {
 
-	private static final String DATABASE_NAME = "wallpapers.db";
-	private static final int DATABASE_VERSION = 1;
+    private static final String DATABASE_NAME = "wallpapers.db";
+    private static final int DATABASE_VERSION = 1;
 
-	/** Downloaded databases for when papers are downloaded **/
-	public static final String TABLE_DOWNLOADED = C.TAG_DOWNLOADED;
-	public static final String COLUMN_D_ID = C.TAG_WID;
-	public static final String COLUMN_D_NAME = C.TAG_NAME;
-	public static final String COLUMN_D_AUTHOR = C.TAG_AUTHOR;
-	public static final String COLUMN_D_PATH = C.TAG_PATH;
-	public static final String COLUMN_D_QUEUE = C.TAG_QUEUE;
-	public static final String COLUMN_D_COMPLETE = C.TAG_COMPLETE;
-	public static final String COLUMN_D_TYPE = C.TAG_TYPE;
+    /**
+     * Downloaded databases for when papers are downloaded *
+     */
+    public static final String TABLE_DOWNLOADED = C.TAG_DOWNLOADED;
+    public static final String COLUMN_D_ID = C.TAG_WID;
+    public static final String COLUMN_D_NAME = C.TAG_NAME;
+    public static final String COLUMN_D_AUTHOR = C.TAG_AUTHOR;
+    public static final String COLUMN_D_PATH = C.TAG_PATH;
+    public static final String COLUMN_D_QUEUE = C.TAG_QUEUE;
+    public static final String COLUMN_D_COMPLETE = C.TAG_COMPLETE;
+    public static final String COLUMN_D_TYPE = C.TAG_TYPE;
 
-	private static final String DATABASE_CREATE_DOWNLOADED = "create table "
-			+ TABLE_DOWNLOADED + "(" + COLUMN_D_ID + " integer not null, "
-			+ COLUMN_D_NAME + " text not null, " + COLUMN_D_AUTHOR
-			+ " text not null, " + COLUMN_D_PATH + " text not null, "
-			+ COLUMN_D_QUEUE + " long not null, " + COLUMN_D_COMPLETE
-			+ " integer not null, " + COLUMN_D_TYPE + " text not null);";
+    private static final String DATABASE_CREATE_DOWNLOADED = "create table "
+            + TABLE_DOWNLOADED + "(" + COLUMN_D_ID + " integer not null, "
+            + COLUMN_D_NAME + " text not null, " + COLUMN_D_AUTHOR
+            + " text not null, " + COLUMN_D_PATH + " text not null, "
+            + COLUMN_D_QUEUE + " long not null, " + COLUMN_D_COMPLETE
+            + " integer not null, " + COLUMN_D_TYPE + " text not null);";
 
-	/** Wallpapers database to populate from the public db server **/
-	public static final String TABLE_WALLPAPERS = C.TAG_WALLPAPERS;
-	public static final String COLUMN_ID = C.TAG_WID;
-	public static final String COLUMN_NAME = C.TAG_NAME;
-	public static final String COLUMN_AUTHOR = C.TAG_AUTHOR;
-	public static final String COLUMN_DESC = C.TAG_DESC;
-	public static final String COLUMN_PREVIEW = C.TAG_PREVIEW;
-	public static final String COLUMN_SIZE_XLARGE = C.TAG_SIZE_XLARGE;
-	public static final String COLUMN_SIZE_LARGE = C.TAG_SIZE_LARGE;
-	public static final String COLUMN_SIZE_NORMAL = C.TAG_SIZE_NORMAL;
-	public static final String COLUMN_DATE = C.TAG_DATE;
+    /**
+     * Wallpapers database to populate from the public db server *
+     */
+    public static final String TABLE_WALLPAPERS = C.TAG_WALLPAPERS;
+    public static final String COLUMN_ID = C.TAG_WID;
+    public static final String COLUMN_NAME = C.TAG_NAME;
+    public static final String COLUMN_AUTHOR = C.TAG_AUTHOR;
+    public static final String COLUMN_DESC = C.TAG_DESC;
+    public static final String COLUMN_PREVIEW = C.TAG_PREVIEW;
+    public static final String COLUMN_SIZE_XLARGE = C.TAG_SIZE_XLARGE;
+    public static final String COLUMN_SIZE_LARGE = C.TAG_SIZE_LARGE;
+    public static final String COLUMN_SIZE_NORMAL = C.TAG_SIZE_NORMAL;
+    public static final String COLUMN_DATE = C.TAG_DATE;
 
-	private static final String DATABASE_CREATE_WALLPAPERS = "create table "
-			+ TABLE_WALLPAPERS + "(" + COLUMN_ID + " integer not null, "
-			+ COLUMN_NAME + " text not null, " + COLUMN_AUTHOR
-			+ " text not null, " + COLUMN_DESC + " text not null, "
-			+ COLUMN_PREVIEW + " text not null, " + COLUMN_SIZE_XLARGE
-			+ " text not null, " + COLUMN_SIZE_LARGE + " text not null, "
-			+ COLUMN_SIZE_NORMAL + " text not null, " + COLUMN_DATE
-			+ " text not null);";
+    private static final String DATABASE_CREATE_WALLPAPERS = "create table "
+            + TABLE_WALLPAPERS + "(" + COLUMN_ID + " integer not null, "
+            + COLUMN_NAME + " text not null, " + COLUMN_AUTHOR
+            + " text not null, " + COLUMN_DESC + " text not null, "
+            + COLUMN_PREVIEW + " text not null, " + COLUMN_SIZE_XLARGE
+            + " text not null, " + COLUMN_SIZE_LARGE + " text not null, "
+            + COLUMN_SIZE_NORMAL + " text not null, " + COLUMN_DATE
+            + " text not null);";
 
 
-	public LocalDBHelper(Context context) {
-		super(context, DATABASE_NAME, null, DATABASE_VERSION);
-	}
+    public LocalDBHelper(Context context) {
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+    }
 
-	@Override
-	public void onCreate(SQLiteDatabase database) {
-		database.execSQL(DATABASE_CREATE_DOWNLOADED);
-		database.execSQL(DATABASE_CREATE_WALLPAPERS);
-	}
+    @Override
+    public void onCreate(SQLiteDatabase database) {
+        database.execSQL(DATABASE_CREATE_DOWNLOADED);
+        database.execSQL(DATABASE_CREATE_WALLPAPERS);
+    }
 
-	@Override
-	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		db.execSQL("DROP TABLE IF EXISTS " + TABLE_DOWNLOADED);
-		db.execSQL("DROP TABLE IF EXISTS " + TABLE_WALLPAPERS);
-		onCreate(db);
-	}
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_DOWNLOADED);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_WALLPAPERS);
+        onCreate(db);
+    }
 
 }

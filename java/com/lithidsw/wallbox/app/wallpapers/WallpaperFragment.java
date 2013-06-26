@@ -16,8 +16,6 @@
 
 package com.lithidsw.wallbox.app.wallpapers;
 
-import java.util.ArrayList;
-
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -46,36 +44,38 @@ import com.lithidsw.wallbox.utils.C;
 import com.lithidsw.wallbox.utils.CustomDialogs;
 import com.lithidsw.wallbox.utils.Utils;
 
+import java.util.ArrayList;
+
 public class WallpaperFragment extends Fragment {
-	WallpaperAdapter wallAdapter;
+    WallpaperAdapter wallAdapter;
     WallpaperAdapter searchAdapter;
-	SharedPreferences prefs;
+    SharedPreferences prefs;
 
-	private WallpaperLoader wallLoader;
+    private WallpaperLoader wallLoader;
     private Utils mUtils;
-	private SyncHelper mSyncHelper;
+    private SyncHelper mSyncHelper;
 
-	private FragmentActivity fa;
+    private FragmentActivity fa;
 
-	GridView wallGrid;
+    GridView wallGrid;
     GridView searchGrid;
     TextView mTextView;
 
-	ArrayList<String[]> aWall = new ArrayList<String[]>();
+    ArrayList<String[]> aWall = new ArrayList<String[]>();
     ArrayList<String[]> aSearch = new ArrayList<String[]>();
 
-	MenuItem mRefresh;
+    MenuItem mRefresh;
     MenuItem mSearch;
 
 
-	String[] sortList;
-	String[] sortListdesc;
+    String[] sortList;
+    String[] sortListdesc;
 
     private boolean simpleFirstRun = false;
 
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
-		RelativeLayout rl = (RelativeLayout) inflater.inflate(R.layout.wallpaper_frag, container, false);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        RelativeLayout rl = (RelativeLayout) inflater.inflate(R.layout.wallpaper_frag, container, false);
         if (rl != null) {
             fa = super.getActivity();
             mSyncHelper = new SyncHelper(fa);
@@ -108,23 +108,23 @@ public class WallpaperFragment extends Fragment {
                 new CustomDialogs().openFirstDialog(fa, title, message);
             }
         }
-		return rl;
-	}
+        return rl;
+    }
 
-	/**
-	 * Stop the async tasks
-	 */
+    /**
+     * Stop the async tasks
+     */
 
-	private void stopWallLoader() {
-		if (wallLoader != null
-				&& wallLoader.getStatus() != WallpaperLoader.Status.FINISHED) {
-			wallLoader.cancel(true);
-			wallLoader = null;
-		}
-	}
+    private void stopWallLoader() {
+        if (wallLoader != null
+                && wallLoader.getStatus() != WallpaperLoader.Status.FINISHED) {
+            wallLoader.cancel(true);
+            wallLoader = null;
+        }
+    }
 
-	@Override
-	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.wallpaper_menu, menu);
         if (menu.size() > 0) {
             mRefresh = menu.findItem(R.id.menu_refresh);
@@ -138,27 +138,27 @@ public class WallpaperFragment extends Fragment {
             }
         }
         super.onCreateOptionsMenu(menu, inflater);
-	}
+    }
 
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		case R.id.menu_refresh:
-			runReload();
-			return true;
-		case R.id.menu_sort:
-			// Nothing right now
-			return true;
-		case R.id.menu_downloads:
-			startActivity(new Intent(fa, WallpaperDownloadedActivity.class));
-			return true;
-		case R.id.menu_settings:
-			startActivity(new Intent(fa, WallpaperSettingsActivity.class));
-			return true;
-		default:
-			return super.onOptionsItemSelected(item);
-		}
-	}
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_refresh:
+                runReload();
+                return true;
+            case R.id.menu_sort:
+                // Nothing right now
+                return true;
+            case R.id.menu_downloads:
+                startActivity(new Intent(fa, WallpaperDownloadedActivity.class));
+                return true;
+            case R.id.menu_settings:
+                startActivity(new Intent(fa, WallpaperSettingsActivity.class));
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
     private void setupSearch(MenuItem searchItem) {
         searchItem.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
@@ -201,27 +201,27 @@ public class WallpaperFragment extends Fragment {
         }
     }
 
-	@Override
-	public void onResume() {
-		super.onResume();
-		wallAdapter.notifyDataSetChanged();
-	}
+    @Override
+    public void onResume() {
+        super.onResume();
+        wallAdapter.notifyDataSetChanged();
+    }
 
-	private void runReload() {
-		stopWallLoader();
-		wallLoader = (WallpaperLoader) new WallpaperLoader().execute("reload");
-	}
+    private void runReload() {
+        stopWallLoader();
+        wallLoader = (WallpaperLoader) new WallpaperLoader().execute("reload");
+    }
 
-	private void runRefresh() {
-		stopWallLoader();
-		wallLoader = (WallpaperLoader) new WallpaperLoader().execute("refresh");
-	}
+    private void runRefresh() {
+        stopWallLoader();
+        wallLoader = (WallpaperLoader) new WallpaperLoader().execute("refresh");
+    }
 
-	@Override
-	public void onPause() {
-		super.onPause();
-		stopWallLoader();
-	}
+    @Override
+    public void onPause() {
+        super.onPause();
+        stopWallLoader();
+    }
 
     private String[] getWallpaperItem(Cursor c) {
         String url = C.URL_WALL_WALLPAPERS;
@@ -245,11 +245,11 @@ public class WallpaperFragment extends Fragment {
         String authitem = c.getString(col_auth);
 
         String[] item = new String[8];
-        item[0] = url+preitem;
+        item[0] = url + preitem;
         item[1] = widitem;
-        item[2] = url+xlitem;
-        item[3] = url+litem;
-        item[4] = url+nitem;
+        item[2] = url + xlitem;
+        item[3] = url + litem;
+        item[4] = url + nitem;
         item[5] = dateitem;
         item[6] = nameitem;
         item[7] = authitem;
@@ -323,33 +323,33 @@ public class WallpaperFragment extends Fragment {
         }
     }
 
-	class WallpaperLoader extends AsyncTask<String, String, Integer> {
+    class WallpaperLoader extends AsyncTask<String, String, Integer> {
 
-		@Override
-		protected void onPreExecute() {
-			mRefresh.setVisible(false);
+        @Override
+        protected void onPreExecute() {
+            mRefresh.setVisible(false);
             fa.setProgressBarIndeterminateVisibility(true);
             aWall.clear();
             wallGrid.invalidateViews();
-		}
+        }
 
-		@Override
-		protected Integer doInBackground(String... arg) {
+        @Override
+        protected Integer doInBackground(String... arg) {
 
-			Cursor c = null;
+            Cursor c = null;
             int count = 0;
-			if ("reload".equals(arg[0])) {
-				mSyncHelper.getWallpapers();
-			}
+            if ("reload".equals(arg[0])) {
+                mSyncHelper.getWallpapers();
+            }
 
             LocalDBHelper helper = new LocalDBHelper(fa);
-			String[] cs = { C.QUERY_LATEST_PAPER, C.QUERY_EARLIEST_PAPER,
-					C.QUERY_NAME_AZ_PAPER, C.QUERY_NAME_ZA_PAPER,
-					C.QUERY_AUTHOR_AZ_PAPER, C.QUERY_AUTHOR_ZA_PAPER };
-			String raw_cmd = cs[mUtils.sortPref(prefs, C.PREF_WALLPAPER_CURRENT_SORT)];
+            String[] cs = {C.QUERY_LATEST_PAPER, C.QUERY_EARLIEST_PAPER,
+                    C.QUERY_NAME_AZ_PAPER, C.QUERY_NAME_ZA_PAPER,
+                    C.QUERY_AUTHOR_AZ_PAPER, C.QUERY_AUTHOR_ZA_PAPER};
+            String raw_cmd = cs[mUtils.sortPref(prefs, C.PREF_WALLPAPER_CURRENT_SORT)];
 
             SQLiteDatabase database = helper.getWritableDatabase();
-			try {
+            try {
                 if (database != null) {
                     c = database.rawQuery(raw_cmd, null);
                     count = c.getCount();
@@ -362,7 +362,7 @@ public class WallpaperFragment extends Fragment {
                         }
                     }
                 }
-			} finally {
+            } finally {
                 if (c != null) {
                     c.close();
                 }
@@ -370,14 +370,14 @@ public class WallpaperFragment extends Fragment {
                 if (database != null) {
                     database.close();
                 }
-			}
-			return count;
-		}
+            }
+            return count;
+        }
 
-		@Override
-		protected void onPostExecute(Integer count) {
-			fa.setProgressBarIndeterminateVisibility(false);
-			wallAdapter.notifyDataSetChanged();
+        @Override
+        protected void onPostExecute(Integer count) {
+            fa.setProgressBarIndeterminateVisibility(false);
+            wallAdapter.notifyDataSetChanged();
 
             if (count > 0) {
                 wallGrid.setVisibility(View.VISIBLE);
@@ -388,6 +388,6 @@ public class WallpaperFragment extends Fragment {
             }
 
             mRefresh.setVisible(true);
-		}
-	}
+        }
+    }
 }

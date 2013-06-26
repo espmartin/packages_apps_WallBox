@@ -16,139 +16,140 @@
 
 package com.lithidsw.wallbox.app.wallpapers.db;
 
-import java.io.File;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.io.File;
+
 public class LocalDataSource {
 
-	private SQLiteDatabase database;
-	private LocalDBHelper dbHelper;
-	private String TABLE = LocalDBHelper.TABLE_DOWNLOADED;
+    private SQLiteDatabase database;
+    private LocalDBHelper dbHelper;
+    private String TABLE = LocalDBHelper.TABLE_DOWNLOADED;
 
-	public LocalDataSource(Context context) {
-		dbHelper = new LocalDBHelper(context);
-	}
+    public LocalDataSource(Context context) {
+        dbHelper = new LocalDBHelper(context);
+    }
 
-	public void open() throws SQLException {
-		database = dbHelper.getWritableDatabase();
-	}
+    public void open() throws SQLException {
+        database = dbHelper.getWritableDatabase();
+    }
 
-	public void close() {
-		dbHelper.close();
-	}
+    public void close() {
+        dbHelper.close();
+    }
 
-	public boolean createItem(Integer num, String name, String author,
-			String path, long queue, int complete, String type) {
-		open();
-		ContentValues values = new ContentValues();
-		values.put(LocalDBHelper.COLUMN_D_ID, num);
-		values.put(LocalDBHelper.COLUMN_D_NAME, name);
-		values.put(LocalDBHelper.COLUMN_D_AUTHOR, author);
-		values.put(LocalDBHelper.COLUMN_D_PATH, path);
-		values.put(LocalDBHelper.COLUMN_D_QUEUE, queue);
-		values.put(LocalDBHelper.COLUMN_D_COMPLETE, complete);
-		values.put(LocalDBHelper.COLUMN_D_TYPE, type);
-		database.insert(TABLE, null, values);
-		close();
-		return false;
-	}
+    public boolean createItem(Integer num, String name, String author,
+                              String path, long queue, int complete, String type) {
+        open();
+        ContentValues values = new ContentValues();
+        values.put(LocalDBHelper.COLUMN_D_ID, num);
+        values.put(LocalDBHelper.COLUMN_D_NAME, name);
+        values.put(LocalDBHelper.COLUMN_D_AUTHOR, author);
+        values.put(LocalDBHelper.COLUMN_D_PATH, path);
+        values.put(LocalDBHelper.COLUMN_D_QUEUE, queue);
+        values.put(LocalDBHelper.COLUMN_D_COMPLETE, complete);
+        values.put(LocalDBHelper.COLUMN_D_TYPE, type);
+        database.insert(TABLE, null, values);
+        close();
+        return false;
+    }
 
-	public void deleteItem(long id) {
-		open();
-		database.delete(TABLE, LocalDBHelper.COLUMN_D_ID + " = " + id, null);
-		close();
-	}
+    public void deleteItem(long id) {
+        open();
+        database.delete(TABLE, LocalDBHelper.COLUMN_D_ID + " = " + id, null);
+        close();
+    }
 
-	public boolean isSingleItem(String name, String type) {
-		boolean exist = false;
-		open();
-		Cursor all;
-		all = database.rawQuery("select * from " + TABLE + " where "
-				+ LocalDBHelper.COLUMN_D_NAME + " = '" + name + "' and "
-				+ LocalDBHelper.COLUMN_D_TYPE + " = '" + type + "'", null);
-		exist = all.moveToFirst();
-		close();
-		return exist;
-	}
+    public boolean isSingleItem(String name, String type) {
+        boolean exist = false;
+        open();
+        Cursor all;
+        all = database.rawQuery("select * from " + TABLE + " where "
+                + LocalDBHelper.COLUMN_D_NAME + " = '" + name + "' and "
+                + LocalDBHelper.COLUMN_D_TYPE + " = '" + type + "'", null);
+        exist = all.moveToFirst();
+        close();
+        return exist;
+    }
 
-	public boolean isQueueItem(String queue) {
-		Cursor all;
-		all = database.rawQuery("select * from " + TABLE + " where "
-				+ LocalDBHelper.COLUMN_D_QUEUE + " = '" + queue + "'", null);
-		return all.moveToFirst();
-	}
+    public boolean isQueueItem(String queue) {
+        Cursor all;
+        all = database.rawQuery("select * from " + TABLE + " where "
+                + LocalDBHelper.COLUMN_D_QUEUE + " = '" + queue + "'", null);
+        return all.moveToFirst();
+    }
 
-	public String[] getItemsFromQueueId(String queue) {
-		String[] item = new String[3];
-		String itemId = null;
-		String itemName = null;
-		String itemUri = null;
-		open();
-		Cursor cur = database.rawQuery("select * from " + TABLE + " where "
-				+ LocalDBHelper.COLUMN_D_QUEUE + " = '" + queue + "'", null);
-		if (cur.moveToFirst()) {
-			itemId = cur.getString(cur
-					.getColumnIndex(LocalDBHelper.COLUMN_D_ID));
-			itemName = cur.getString(cur
-					.getColumnIndex(LocalDBHelper.COLUMN_D_NAME));
-			itemUri = cur.getString(cur
-					.getColumnIndex(LocalDBHelper.COLUMN_D_PATH));
-		}
-		close();
-		item[0] = itemId;
-		item[1] = itemName;
-		item[2] = itemUri;
-		return item;
-	}
+    public String[] getItemsFromQueueId(String queue) {
+        String[] item = new String[3];
+        String itemId = null;
+        String itemName = null;
+        String itemUri = null;
+        open();
+        Cursor cur = database.rawQuery("select * from " + TABLE + " where "
+                + LocalDBHelper.COLUMN_D_QUEUE + " = '" + queue + "'", null);
+        if (cur.moveToFirst()) {
+            itemId = cur.getString(cur
+                    .getColumnIndex(LocalDBHelper.COLUMN_D_ID));
+            itemName = cur.getString(cur
+                    .getColumnIndex(LocalDBHelper.COLUMN_D_NAME));
+            itemUri = cur.getString(cur
+                    .getColumnIndex(LocalDBHelper.COLUMN_D_PATH));
+        }
+        close();
+        item[0] = itemId;
+        item[1] = itemName;
+        item[2] = itemUri;
+        return item;
+    }
 
-	public String[] getItemsFromId(int id) {
-		String[] item = new String[2];
-		String itemName = null;
-		String itemUri = null;
-		open();
-		Cursor cur = database.rawQuery("select * from " + TABLE + " where "
-				+ LocalDBHelper.COLUMN_D_ID + " = '" + id + "'", null);
-		if (cur.moveToFirst()) {
-			itemName = cur.getString(cur
-					.getColumnIndex(LocalDBHelper.COLUMN_D_NAME));
-			itemUri = cur.getString(cur
-					.getColumnIndex(LocalDBHelper.COLUMN_D_PATH));
-		}
-		close();
-		item[0] = itemName;
-		item[1] = itemUri;
-		return item;
-	}
+    public String[] getItemsFromId(int id) {
+        String[] item = new String[2];
+        String itemName = null;
+        String itemUri = null;
+        open();
+        Cursor cur = database.rawQuery("select * from " + TABLE + " where "
+                + LocalDBHelper.COLUMN_D_ID + " = '" + id + "'", null);
+        if (cur.moveToFirst()) {
+            itemName = cur.getString(cur
+                    .getColumnIndex(LocalDBHelper.COLUMN_D_NAME));
+            itemUri = cur.getString(cur
+                    .getColumnIndex(LocalDBHelper.COLUMN_D_PATH));
+        }
+        close();
+        item[0] = itemName;
+        item[1] = itemUri;
+        return item;
+    }
 
-	public String getLocalPath(String name, String id) {
-		String path[] = null;
-		try {
-			open();
-			path = getItemsFromId(Integer.parseInt(id));
-		} finally {
-			close();
-		}
-		return path[1];
-	}
+    public String getLocalPath(String name, String id) {
+        String path[] = null;
+        try {
+            open();
+            path = getItemsFromId(Integer.parseInt(id));
+        } finally {
+            close();
+        }
+        return path[1];
+    }
 
-	public void cleanTable() {
-		open();
-		Cursor cur;
-		cur = database.rawQuery("select * from " + TABLE, null);
-		while (cur.moveToNext()) {
-			File filePath = new File(cur.getString(cur
-					.getColumnIndex(LocalDBHelper.COLUMN_D_PATH)));
-			if (!filePath.exists()) {
-				deleteItem(Integer.parseInt(cur.getString(cur
-						.getColumnIndex(LocalDBHelper.COLUMN_D_ID))));
-			}
-		}
-		cur.close();
-		close();
-	}
+    public void cleanTable() {
+        open();
+        Cursor cur;
+        cur = database.rawQuery("select * from " + TABLE, null);
+        while (cur.moveToNext()) {
+            File filePath = new File(cur.getString(cur
+                    .getColumnIndex(LocalDBHelper.COLUMN_D_PATH)));
+            if (!filePath.exists()) {
+                deleteItem(Integer.parseInt(cur.getString(cur
+                        .getColumnIndex(LocalDBHelper.COLUMN_D_ID))));
+            }
+        }
+        cur.close();
+        close();
+    }
 
 }

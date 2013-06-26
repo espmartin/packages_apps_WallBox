@@ -60,7 +60,7 @@ public class Utils {
     Context mContext;
     Toast mToast = null;
 
-    public Utils (Context context) {
+    public Utils(Context context) {
         mContext = context;
     }
 
@@ -223,7 +223,7 @@ public class Utils {
 
     public static Bitmap drawableToBitmap(Drawable drawable) {
         if (drawable instanceof BitmapDrawable) {
-            return ((BitmapDrawable)drawable).getBitmap();
+            return ((BitmapDrawable) drawable).getBitmap();
         }
         Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
@@ -301,23 +301,23 @@ public class Utils {
         if (!DateFormat.is24HourFormat(mContext)) {
             if (hour >= 12) {
                 if (hour == 12) {
-                    shour = 12+" PM";
+                    shour = 12 + " PM";
                 } else {
-                    shour = hour - 12+" PM";
+                    shour = hour - 12 + " PM";
                 }
             } else if (hour == 0) {
-                shour = 12+" AM";
+                shour = 12 + " AM";
             } else {
-                shour = hour+" AM";
+                shour = hour + " AM";
             }
         }
 
-        return mContext.getResources().getString(R.string.wallpaper_at)+shour;
+        return mContext.getResources().getString(R.string.wallpaper_at) + shour;
     }
 
     public File getExternalDir() {
         return new File(Environment.getExternalStorageDirectory().getAbsolutePath()
-                + "/"+ mContext.getString(R.string.app_name));
+                + "/" + mContext.getString(R.string.app_name));
     }
 
     public void removeDir(File dir) {
@@ -352,7 +352,7 @@ public class Utils {
         cal.set(Calendar.MINUTE, 0);
         cal.set(Calendar.SECOND, 0);
         Intent in1 = new Intent("com.lithidsw.wallbox.WALLPAPER_CHECK_UPDATES");
-        PendingIntent pi = PendingIntent.getBroadcast(mContext,9856, in1, 0);
+        PendingIntent pi = PendingIntent.getBroadcast(mContext, 9856, in1, 0);
         AlarmManager am = (AlarmManager) mContext.getSystemService(Activity.ALARM_SERVICE);
         am.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), INTERVAL, pi);
         if (!run) {
@@ -362,7 +362,7 @@ public class Utils {
 
     public void stopSaturatedAlarms() {
         Calendar cal = Calendar.getInstance();
-        cal.set(Calendar.HOUR_OF_DAY, cal.get(Calendar.HOUR_OF_DAY)+1);
+        cal.set(Calendar.HOUR_OF_DAY, cal.get(Calendar.HOUR_OF_DAY) + 1);
         cal.set(Calendar.MINUTE, 0);
         cal.set(Calendar.SECOND, 0);
         Intent in = new Intent("com.lithidsw.wallbox.UPDATE_SATURATE_WALL");
@@ -376,11 +376,11 @@ public class Utils {
 
     public void setSaturatedAlarms() {
         Calendar cal = Calendar.getInstance();
-        cal.set(Calendar.HOUR_OF_DAY, cal.get(Calendar.HOUR_OF_DAY)+1);
+        cal.set(Calendar.HOUR_OF_DAY, cal.get(Calendar.HOUR_OF_DAY) + 1);
         cal.set(Calendar.MINUTE, 0);
         cal.set(Calendar.SECOND, 0);
         Intent in = new Intent("com.lithidsw.wallbox.UPDATE_SATURATE_WALL");
-        PendingIntent pi = PendingIntent.getBroadcast(mContext,C.ALARM_ID, in, 0);
+        PendingIntent pi = PendingIntent.getBroadcast(mContext, C.ALARM_ID, in, 0);
         AlarmManager am = (AlarmManager) mContext.getSystemService(
                 Activity.ALARM_SERVICE);
         am.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(),
@@ -393,7 +393,7 @@ public class Utils {
         cal.set(Calendar.MINUTE, 0);
         cal.set(Calendar.SECOND, 0);
         Intent in = new Intent("com.lithidsw.wallbox.UPDATE_RANDOMIZER_WALL");
-        PendingIntent pi = PendingIntent.getBroadcast(mContext,9563, in, 0);
+        PendingIntent pi = PendingIntent.getBroadcast(mContext, 9563, in, 0);
         AlarmManager am = (AlarmManager) mContext.getSystemService(
                 Activity.ALARM_SERVICE);
         am.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(),
@@ -458,7 +458,7 @@ public class Utils {
 
         cal.add(Calendar.SECOND, 5);
         Intent in = new Intent("com.lithidsw.wallbox.UPDATE_RANDOMIZER_WALL");
-        PendingIntent pi = PendingIntent.getBroadcast(mContext,9563, in, 0);
+        PendingIntent pi = PendingIntent.getBroadcast(mContext, 9563, in, 0);
         AlarmManager am = (AlarmManager) mContext.getSystemService(
                 Activity.ALARM_SERVICE);
         am.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(),

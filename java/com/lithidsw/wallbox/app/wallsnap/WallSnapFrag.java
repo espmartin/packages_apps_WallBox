@@ -35,12 +35,12 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.SeekBar;
 
+import com.lithidsw.wallbox.R;
 import com.lithidsw.wallbox.utils.C;
 import com.lithidsw.wallbox.utils.CustomDialogs;
-import com.lithidsw.wallbox.R;
 import com.lithidsw.wallbox.utils.Utils;
 
-public class WallSnapFrag extends Fragment implements View.OnClickListener{
+public class WallSnapFrag extends Fragment implements View.OnClickListener {
 
     LinearLayout ll;
     FragmentActivity fa;
@@ -59,13 +59,14 @@ public class WallSnapFrag extends Fragment implements View.OnClickListener{
         fa = super.getActivity();
         mUtils = new Utils(fa);
         prefs = fa.getSharedPreferences(C.PREF, Context.MODE_PRIVATE);
-        ll = (LinearLayout)inflater.inflate(R.layout.wallsave_frag, container, false);
+        ll = (LinearLayout) inflater.inflate(R.layout.wallsave_frag, container, false);
         wm = WallpaperManager.getInstance(fa);
         image = (ImageView) ll.findViewById(R.id.main_image);
         try {
             WallpaperInfo info = wm.getWallpaperInfo();
             info.toString();
-        } catch (NullPointerException ignore){}
+        } catch (NullPointerException ignore) {
+        }
         image.setImageDrawable(wm.getDrawable());
 
         mRadioSat = (RadioButton) ll.findViewById(R.id.radio_sat);
@@ -88,10 +89,12 @@ public class WallSnapFrag extends Fragment implements View.OnClickListener{
             }
 
             @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {}
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
 
             @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {}
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
         });
         mSeekHue.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 
@@ -101,10 +104,12 @@ public class WallSnapFrag extends Fragment implements View.OnClickListener{
             }
 
             @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {}
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
 
             @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {}
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
         });
 
         if (!prefs.getBoolean(C.PREF_WALLSNAP_FIRST_RUN_MAIN, false)) {
@@ -132,7 +137,7 @@ public class WallSnapFrag extends Fragment implements View.OnClickListener{
         final int w = v.getWidth();
         final int h = v.getHeight();
         final Bitmap b = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
-        final Canvas c = new  Canvas(b);
+        final Canvas c = new Canvas(b);
         v.layout(v.getLeft(), v.getTop(), v.getRight(), v.getBottom());
         v.draw(c);
         return b;
@@ -153,6 +158,7 @@ public class WallSnapFrag extends Fragment implements View.OnClickListener{
 
     class ImageSaver extends AsyncTask<String, String, Boolean> {
         ProgressDialog progressDialog;
+
         @Override
         protected void onPreExecute() {
             progressDialog = ProgressDialog.show(fa, "", fa.getResources().getString(R.string.save_wallpaper));

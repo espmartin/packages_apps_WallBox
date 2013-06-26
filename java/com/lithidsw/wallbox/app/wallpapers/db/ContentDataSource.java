@@ -24,65 +24,65 @@ import android.database.sqlite.SQLiteDatabase;
 
 public class ContentDataSource {
 
-	// Database fields
-	private SQLiteDatabase database;
-	private LocalDBHelper dbHelper;
-	private static final String TABLE_WALLPAPERS = LocalDBHelper.TABLE_WALLPAPERS;
-	private static final String TABLE_DOWNLOADED = LocalDBHelper.TABLE_DOWNLOADED;
+    // Database fields
+    private SQLiteDatabase database;
+    private LocalDBHelper dbHelper;
+    private static final String TABLE_WALLPAPERS = LocalDBHelper.TABLE_WALLPAPERS;
+    private static final String TABLE_DOWNLOADED = LocalDBHelper.TABLE_DOWNLOADED;
 
-	public ContentDataSource(Context context) {
-		dbHelper = new LocalDBHelper(context);
-	}
+    public ContentDataSource(Context context) {
+        dbHelper = new LocalDBHelper(context);
+    }
 
-	public void open() throws SQLException {
-		database = dbHelper.getWritableDatabase();
-	}
+    public void open() throws SQLException {
+        database = dbHelper.getWritableDatabase();
+    }
 
-	public void close() {
-		dbHelper.close();
-	}
+    public void close() {
+        dbHelper.close();
+    }
 
-	public void putWallItem(String id, String name, String author,
-			String desc, String preview, String large, String normal,
-			String small, String created) {
+    public void putWallItem(String id, String name, String author,
+                            String desc, String preview, String large, String normal,
+                            String small, String created) {
 
-        System.out.println("Id: "+id+" Name: "+name);
-		open();
-		ContentValues values = new ContentValues();
-		values.put(LocalDBHelper.COLUMN_ID, id);
-		values.put(LocalDBHelper.COLUMN_NAME, name);
-		values.put(LocalDBHelper.COLUMN_AUTHOR, author);
-		values.put(LocalDBHelper.COLUMN_DESC, desc);
-		values.put(LocalDBHelper.COLUMN_PREVIEW, preview);
-		values.put(LocalDBHelper.COLUMN_SIZE_XLARGE, large);
-		values.put(LocalDBHelper.COLUMN_SIZE_LARGE, normal);
-		values.put(LocalDBHelper.COLUMN_SIZE_NORMAL, small);
-		values.put(LocalDBHelper.COLUMN_DATE, created);
-		database.insert(TABLE_WALLPAPERS, null, values);
-		close();
-	}
-	
-	public int getWallCount() {
-		int r=0;
-		open();
-		Cursor c = database.rawQuery("select count(*) from wallpapers", null);
-		if (c.moveToFirst()) {
-			r = c.getInt(0);
-		}
-		close();
-		return r;
-	}
+        System.out.println("Id: " + id + " Name: " + name);
+        open();
+        ContentValues values = new ContentValues();
+        values.put(LocalDBHelper.COLUMN_ID, id);
+        values.put(LocalDBHelper.COLUMN_NAME, name);
+        values.put(LocalDBHelper.COLUMN_AUTHOR, author);
+        values.put(LocalDBHelper.COLUMN_DESC, desc);
+        values.put(LocalDBHelper.COLUMN_PREVIEW, preview);
+        values.put(LocalDBHelper.COLUMN_SIZE_XLARGE, large);
+        values.put(LocalDBHelper.COLUMN_SIZE_LARGE, normal);
+        values.put(LocalDBHelper.COLUMN_SIZE_NORMAL, small);
+        values.put(LocalDBHelper.COLUMN_DATE, created);
+        database.insert(TABLE_WALLPAPERS, null, values);
+        close();
+    }
 
-	public void deleteAllTable(String type) {
-		open();
-		String THIS_TABLE = null;
-		if (type.equals("downloaded")) {
-			THIS_TABLE = TABLE_DOWNLOADED;
-		}
-		if (type.equals("wallpapers")) {
-			THIS_TABLE = TABLE_WALLPAPERS;
-		}
-		database.delete(THIS_TABLE, null, null);
-		close();
-	}
+    public int getWallCount() {
+        int r = 0;
+        open();
+        Cursor c = database.rawQuery("select count(*) from wallpapers", null);
+        if (c.moveToFirst()) {
+            r = c.getInt(0);
+        }
+        close();
+        return r;
+    }
+
+    public void deleteAllTable(String type) {
+        open();
+        String THIS_TABLE = null;
+        if (type.equals("downloaded")) {
+            THIS_TABLE = TABLE_DOWNLOADED;
+        }
+        if (type.equals("wallpapers")) {
+            THIS_TABLE = TABLE_WALLPAPERS;
+        }
+        database.delete(THIS_TABLE, null, null);
+        close();
+    }
 }

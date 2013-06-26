@@ -38,41 +38,41 @@ import com.lithidsw.wallbox.utils.Utils;
 
 public class WallpaperSettingsActivity extends PreferenceActivity {
 
-	static CheckBoxPreference mCheckInterval;
-	Activity a;
-	Utils mUtils;
+    static CheckBoxPreference mCheckInterval;
+    Activity a;
+    Utils mUtils;
 
-	@SuppressWarnings("deprecation")
+    @SuppressWarnings("deprecation")
     @Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		addPreferencesFromResource(R.xml.wallpaper_preferences);
-		a = this;
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        addPreferencesFromResource(R.xml.wallpaper_preferences);
+        a = this;
         mUtils = new Utils(a);
 
         final ActionBar mActionBar = getActionBar();
         if (mActionBar != null) {
             mActionBar.setDisplayHomeAsUpEnabled(true);
         }
-		
-	    Display display = getWindowManager().getDefaultDisplay();
-	    DisplayMetrics outMetrics = new DisplayMetrics();
-	    display.getMetrics(outMetrics);
-		
-		mCheckInterval = (CheckBoxPreference) findPreference(C.PREF_WALLPAPER_CHECK_INTERVAL);
-		mCheckInterval.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
-			@Override
-			public boolean onPreferenceChange(Preference arg0, Object arg1) {
-				if (arg1.equals(true)) {
-					mUtils.setWallpaperAlarms(true);
-				} else {
-					mUtils.setWallpaperAlarms(false);
-				}
-				return true;
-			}
-		});
 
-		Preference prefFav = findPreference(C.PREF_WALLPAPER_CLEAR_FAVORITES);
+        Display display = getWindowManager().getDefaultDisplay();
+        DisplayMetrics outMetrics = new DisplayMetrics();
+        display.getMetrics(outMetrics);
+
+        mCheckInterval = (CheckBoxPreference) findPreference(C.PREF_WALLPAPER_CHECK_INTERVAL);
+        mCheckInterval.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+            @Override
+            public boolean onPreferenceChange(Preference arg0, Object arg1) {
+                if (arg1.equals(true)) {
+                    mUtils.setWallpaperAlarms(true);
+                } else {
+                    mUtils.setWallpaperAlarms(false);
+                }
+                return true;
+            }
+        });
+
+        Preference prefFav = findPreference(C.PREF_WALLPAPER_CLEAR_FAVORITES);
         if (prefFav != null) {
             prefFav.setOnPreferenceClickListener(new OnPreferenceClickListener() {
                 @Override
@@ -85,7 +85,7 @@ public class WallpaperSettingsActivity extends PreferenceActivity {
             });
         }
 
-		Preference prefDown = findPreference(C.PREF_WALLPAPER_CLEAR_DOWNLOADED);
+        Preference prefDown = findPreference(C.PREF_WALLPAPER_CLEAR_DOWNLOADED);
         if (prefDown != null) {
             prefDown.setOnPreferenceClickListener(new OnPreferenceClickListener() {
                 @Override
@@ -98,24 +98,24 @@ public class WallpaperSettingsActivity extends PreferenceActivity {
                 }
             });
         }
-		
-	    float density  = getResources().getDisplayMetrics().density;
-	    float dpHeight = outMetrics.heightPixels / density;
-	    float dpWidth  = outMetrics.widthPixels / density;
-		Preference prefInfoScreen = findPreference(C.PREF_WALLPAPER_INFO_SCREEN);
-        if (prefInfoScreen != null) {
-            prefInfoScreen.setSummary("Width: "+dpWidth+"dp"+" Height:"+dpHeight+"dp");
-        }
-	}
 
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		case android.R.id.home:
-			finish();
-			return true;
-		default:
-			return super.onOptionsItemSelected(item);
-		}
-	}
+        float density = getResources().getDisplayMetrics().density;
+        float dpHeight = outMetrics.heightPixels / density;
+        float dpWidth = outMetrics.widthPixels / density;
+        Preference prefInfoScreen = findPreference(C.PREF_WALLPAPER_INFO_SCREEN);
+        if (prefInfoScreen != null) {
+            prefInfoScreen.setSummary("Width: " + dpWidth + "dp" + " Height:" + dpHeight + "dp");
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 }

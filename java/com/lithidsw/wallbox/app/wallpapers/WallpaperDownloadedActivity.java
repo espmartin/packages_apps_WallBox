@@ -16,14 +16,12 @@
 
 package com.lithidsw.wallbox.app.wallpapers;
 
-import java.util.ArrayList;
-
 import android.app.ActionBar;
-import android.os.AsyncTask;
-import android.os.Bundle;
 import android.app.Activity;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.AsyncTask;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -39,28 +37,30 @@ import com.lithidsw.wallbox.app.wallpapers.db.LocalDBHelper;
 import com.lithidsw.wallbox.app.wallpapers.frag.GalFrag;
 import com.lithidsw.wallbox.utils.Utils;
 
+import java.util.ArrayList;
+
 public class WallpaperDownloadedActivity extends FragmentActivity {
 
-	Activity a;
-	SectionsPagerAdapter mSectionsPagerAdapter;
-	ViewPager mViewPager;
+    Activity a;
+    SectionsPagerAdapter mSectionsPagerAdapter;
+    ViewPager mViewPager;
 
-	ArrayList<String> wallPreview = new ArrayList<String>();
-	ArrayList<String> wallWid = new ArrayList<String>();
-	ArrayList<String> wallName = new ArrayList<String>();
-	ArrayList<String> wallAuthor = new ArrayList<String>();
+    ArrayList<String> wallPreview = new ArrayList<String>();
+    ArrayList<String> wallWid = new ArrayList<String>();
+    ArrayList<String> wallName = new ArrayList<String>();
+    ArrayList<String> wallAuthor = new ArrayList<String>();
 
-	Utils mUtils;
-	private WallpaperLoader wallLoader;
+    Utils mUtils;
+    private WallpaperLoader wallLoader;
 
     private static final String TABLE_DOWNLOADED = LocalDBHelper.TABLE_DOWNLOADED;
-	private static final String SELECT_WALLPAPERS = "SELECT * FROM ";
-	private String title;
+    private static final String SELECT_WALLPAPERS = "SELECT * FROM ";
+    private String title;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		a = this;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        a = this;
         mUtils = new Utils(a);
 
         final ActionBar actionBar = getActionBar();
@@ -70,87 +70,87 @@ public class WallpaperDownloadedActivity extends FragmentActivity {
         title = a.getString(R.string.downloaded);
         wallLoader = (WallpaperLoader) new WallpaperLoader().execute(
                 TABLE_DOWNLOADED, LocalDBHelper.COLUMN_D_PATH);
-	}
+    }
 
-	@Override
-	public void onStop() {
-		super.onStop();
-		stopWallLoader();
-		finish();
-	}
+    @Override
+    public void onStop() {
+        super.onStop();
+        stopWallLoader();
+        finish();
+    }
 
-	private void stopWallLoader() {
-		if (wallLoader != null
-				&& wallLoader.getStatus() != WallpaperLoader.Status.FINISHED) {
-			wallLoader.cancel(true);
-			wallLoader = null;
-		}
-	}
+    private void stopWallLoader() {
+        if (wallLoader != null
+                && wallLoader.getStatus() != WallpaperLoader.Status.FINISHED) {
+            wallLoader.cancel(true);
+            wallLoader = null;
+        }
+    }
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.wallpaper_gallery_menu, menu);
-		return true;
-	}
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.wallpaper_gallery_menu, menu);
+        return true;
+    }
 
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		case android.R.id.home:
-			finish();
-			return true;
-		default:
-			return super.onOptionsItemSelected(item);
-		}
-	}
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
-	public class SectionsPagerAdapter extends FragmentPagerAdapter {
+    public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
-		public SectionsPagerAdapter(FragmentManager fm) {
-			super(fm);
-		}
+        public SectionsPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
 
-		@Override
-		public int getCount() {
-			return wallWid.size();
-		}
+        @Override
+        public int getCount() {
+            return wallWid.size();
+        }
 
-		@Override
-		public Fragment getItem(int num) {
-			Bundle args = new Bundle();
-			args.putString("author", wallAuthor.get(num));
-			args.putString("name", wallName.get(num));
-			args.putString("preview", wallPreview.get(num));
-			args.putString("id", wallWid.get(num));
-			args.putInt("total", wallWid.size());
-			args.putString("title", title);
-			args.putInt("current", num);
-			Fragment frag = new GalFrag();
-			frag.setArguments(args);
-			return frag;
-		}
+        @Override
+        public Fragment getItem(int num) {
+            Bundle args = new Bundle();
+            args.putString("author", wallAuthor.get(num));
+            args.putString("name", wallName.get(num));
+            args.putString("preview", wallPreview.get(num));
+            args.putString("id", wallWid.get(num));
+            args.putInt("total", wallWid.size());
+            args.putString("title", title);
+            args.putInt("current", num);
+            Fragment frag = new GalFrag();
+            frag.setArguments(args);
+            return frag;
+        }
 
-		@Override
-		public CharSequence getPageTitle(int num) {
-			return Html.fromHtml("<b>"
-					+ (wallAuthor.get(num) + "</b>" + " " + wallName.get(num)));
-		}
-	}
+        @Override
+        public CharSequence getPageTitle(int num) {
+            return Html.fromHtml("<b>"
+                    + (wallAuthor.get(num) + "</b>" + " " + wallName.get(num)));
+        }
+    }
 
-	class WallpaperLoader extends AsyncTask<String, String, String> {
+    class WallpaperLoader extends AsyncTask<String, String, String> {
 
-		@Override
-		protected String doInBackground(String... arg) {
-			if (arg[0] == null) {
-				return null;
-			}
-			Cursor c = null;
+        @Override
+        protected String doInBackground(String... arg) {
+            if (arg[0] == null) {
+                return null;
+            }
+            Cursor c = null;
             LocalDBHelper helper = new LocalDBHelper(a);
 
             SQLiteDatabase database = helper.getWritableDatabase();
-			try {
-				c = database.rawQuery(SELECT_WALLPAPERS + arg[0], null);
+            try {
+                c = database.rawQuery(SELECT_WALLPAPERS + arg[0], null);
                 if (c != null) {
                     if (c.moveToFirst()) {
                         for (int i = 0; i < c.getCount(); i++) {
@@ -165,33 +165,33 @@ public class WallpaperDownloadedActivity extends FragmentActivity {
                         }
                     }
                 }
-			} finally {
-				c.close();
-				database.close();
-			}
-			return null;
-		}
+            } finally {
+                c.close();
+                database.close();
+            }
+            return null;
+        }
 
-		@Override
-		protected void onPostExecute(final String str) {
-			runOnUiThread(new Runnable() {
-				@Override
-				public void run() {
-					if (wallWid.size() != 0) {
-						setContentView(R.layout.wallpaper_gallery_main);
-						mSectionsPagerAdapter = new SectionsPagerAdapter(
-								getSupportFragmentManager());
-						mViewPager = (ViewPager) findViewById(R.id.pager);
-						mViewPager.setAdapter(mSectionsPagerAdapter);
-						mViewPager.setCurrentItem(0);
-					} else {
-						setTitle(title);
-						setContentView(R.layout.wallpaper_empty);
-					}
-				}
-			});
+        @Override
+        protected void onPostExecute(final String str) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    if (wallWid.size() != 0) {
+                        setContentView(R.layout.wallpaper_gallery_main);
+                        mSectionsPagerAdapter = new SectionsPagerAdapter(
+                                getSupportFragmentManager());
+                        mViewPager = (ViewPager) findViewById(R.id.pager);
+                        mViewPager.setAdapter(mSectionsPagerAdapter);
+                        mViewPager.setCurrentItem(0);
+                    } else {
+                        setTitle(title);
+                        setContentView(R.layout.wallpaper_empty);
+                    }
+                }
+            });
 
-		}
-	}
+        }
+    }
 
 }

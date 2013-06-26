@@ -43,11 +43,11 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.lithidsw.wallbox.utils.C;
-import com.lithidsw.wallbox.utils.CustomDialogs;
 import com.lithidsw.wallbox.R;
 import com.lithidsw.wallbox.app.randomizer.adapter.RandomizerGridAdapter;
 import com.lithidsw.wallbox.db.TableHelper;
+import com.lithidsw.wallbox.utils.C;
+import com.lithidsw.wallbox.utils.CustomDialogs;
 import com.lithidsw.wallbox.utils.Utils;
 
 import java.io.File;
@@ -76,7 +76,7 @@ public class RandomizerFrag extends Fragment {
 
         fa = super.getActivity();
         mUtils = new Utils(fa);
-        ll = (LinearLayout)inflater.inflate(R.layout.randomizer_frag, container, false);
+        ll = (LinearLayout) inflater.inflate(R.layout.randomizer_frag, container, false);
         prefs = fa.getSharedPreferences(C.PREF, Context.MODE_PRIVATE);
 
         adapter = new RandomizerGridAdapter(fa, mGalItems);
@@ -208,13 +208,13 @@ public class RandomizerFrag extends Fragment {
         builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int id) {
-                int selectedPosition = ((AlertDialog)dialog).getListView().getCheckedItemPosition();
+                int selectedPosition = ((AlertDialog) dialog).getListView().getCheckedItemPosition();
                 prefs.edit().putInt(C.PREF_RANDOMIZER_INTERVAL, selectedPosition).commit();
                 new Utils(fa).stopRandomizerAlarms();
                 if (selectedPosition > 0) {
                     new Utils(fa).setRandomizerAlarms(selectedPosition);
                     String itemChosen = getResources().getStringArray(R.array.time_intervals)[selectedPosition];
-                    Toast.makeText(fa, "Wallpapers set: "+itemChosen, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(fa, "Wallpapers set: " + itemChosen, Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(fa, "Stopping PapersRand now", Toast.LENGTH_SHORT).show();
                 }
@@ -232,7 +232,7 @@ public class RandomizerFrag extends Fragment {
 
     private String checkImage(Uri uri) {
         String image_path = null;
-        Cursor cursor = fa.getContentResolver().query(uri, new String[] { android.provider.MediaStore.Images.ImageColumns.DATA }, null, null, null);
+        Cursor cursor = fa.getContentResolver().query(uri, new String[]{android.provider.MediaStore.Images.ImageColumns.DATA}, null, null, null);
         cursor.moveToFirst();
         image_path = cursor.getString(0);
         cursor.close();
@@ -281,7 +281,7 @@ public class RandomizerFrag extends Fragment {
         protected Integer doInBackground(String... strings) {
             ArrayList<String[]> list = new TableHelper(fa).getAllPapers();
             if (list.size() > 0) {
-                for (int i=0; i < list.size(); i++) {
+                for (int i = 0; i < list.size(); i++) {
                     String[] item = new String[2];
                     item[0] = list.get(i)[0];
                     item[1] = list.get(i)[1];

@@ -37,70 +37,70 @@ import com.lithidsw.wallbox.utils.Utils;
 
 public class GalFrag extends Fragment {
 
-	private LocalDataSource downloadDataSource;
+    private LocalDataSource downloadDataSource;
     private FragmentActivity fa;
     Utils mUtils;
 
-	ImageView image;
+    ImageView image;
 
-	private String url;
-	private String author;
-	private String name;
-	private String title;
-	private String preview;
+    private String url;
+    private String author;
+    private String name;
+    private String title;
+    private String preview;
 
-	private int id;
-	private int current;
-	private int total;
-	private int color;
+    private int id;
+    private int current;
+    private int total;
+    private int color;
 
 
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
-		fa = super.getActivity();
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        fa = super.getActivity();
         mUtils = new Utils(fa);
         downloadDataSource = new LocalDataSource(fa);
 
         ImageLoader imageLoader = new ImageLoader(fa.getApplicationContext(), 325);
 
-		RelativeLayout rl = (RelativeLayout) inflater.inflate(R.layout.wallpaper_gallery_image, container, false);
+        RelativeLayout rl = (RelativeLayout) inflater.inflate(R.layout.wallpaper_gallery_image, container, false);
 
         if (rl != null) {
             image = (ImageView) rl.findViewById(R.id.frag_image);
         }
 
-		author = getArguments().getString("author", null);
-		name = getArguments().getString("name", null);
-		title = getArguments().getString("title", null);
-		preview = getArguments().getString("preview", null);
-		id = Integer.parseInt(getArguments().getString("id", null));
-		current = getArguments().getInt("current", 0);
-		total = getArguments().getInt("total", 0);
+        author = getArguments().getString("author", null);
+        name = getArguments().getString("name", null);
+        title = getArguments().getString("title", null);
+        preview = getArguments().getString("preview", null);
+        id = Integer.parseInt(getArguments().getString("id", null));
+        current = getArguments().getInt("current", 0);
+        total = getArguments().getInt("total", 0);
 
-		imageLoader.DisplayImage(preview, image);
-		color = getResources().getColor(R.color.dark_light);
+        imageLoader.DisplayImage(preview, image);
+        color = getResources().getColor(R.color.dark_light);
 
-		setHasOptionsMenu(true);
-		return rl;
-	}
+        setHasOptionsMenu(true);
+        return rl;
+    }
 
-	@Override
-	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-		super.onCreateOptionsMenu(menu, inflater);
-		fa.setTitle(Html.fromHtml(title + " <b><font color='"+color+"'>"+(current+1)
-				+"</font>"+"/<font color='"+color+"'>"+total+"</font></b>"));
-	}
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        fa.setTitle(Html.fromHtml(title + " <b><font color='" + color + "'>" + (current + 1)
+                + "</font>" + "/<font color='" + color + "'>" + total + "</font></b>"));
+    }
 
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		case R.id.menu_apply:
-			Intent intent = mUtils.getWallpaperApplyIntent(name, downloadDataSource.getLocalPath(name, "" + id), 0);
-			fa.startActivity(intent);
-			return true;
-		default:
-			return super.onOptionsItemSelected(item);
-		}
-	}
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_apply:
+                Intent intent = mUtils.getWallpaperApplyIntent(name, downloadDataSource.getLocalPath(name, "" + id), 0);
+                fa.startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
 }

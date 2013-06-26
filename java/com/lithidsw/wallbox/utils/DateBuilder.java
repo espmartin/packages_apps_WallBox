@@ -16,12 +16,12 @@
 
 package com.lithidsw.wallbox.utils;
 
+import android.content.Context;
+import android.text.format.DateFormat;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
-
-import android.content.Context;
-import android.text.format.DateFormat;
 
 public class DateBuilder {
 

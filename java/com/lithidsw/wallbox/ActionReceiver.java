@@ -34,6 +34,7 @@ public class ActionReceiver extends BroadcastReceiver {
 
     SharedPreferences prefs;
     Utils mUtils;
+
     @Override
     public void onReceive(Context context, Intent intent) {
         if (intent.getAction() != null) {
@@ -45,7 +46,7 @@ public class ActionReceiver extends BroadcastReceiver {
                 if (interval > 0) {
                     long curTime = new Date().getTime();
                     String date = new DateBuilder().getFullDate(context, String.valueOf(curTime));
-                    System.out.println("PapersRand, got alarm for update wallpaper: "+date);
+                    System.out.println("PapersRand, got alarm for update wallpaper: " + date);
 
                     final Context con = context;
                     Thread thread = new Thread() {
@@ -92,7 +93,7 @@ public class ActionReceiver extends BroadcastReceiver {
                     info.toString();
                     mUtils.stopSaturatedAlarms();
                     prefs.edit().putBoolean(C.PREF_SATURATE_START, false).commit();
-                } catch (NullPointerException e){
+                } catch (NullPointerException e) {
                     int randInt = prefs.getInt(C.PREF_RANDOMIZER_INTERVAL, 0);
                     if (randInt <= 0) {
                         mUtils.setSaturatedWallpaperFromFile(false);

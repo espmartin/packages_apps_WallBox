@@ -17,14 +17,14 @@
 package com.lithidsw.wallbox.utils;
 
 public class C {
-	public static final String TAG = "MrPaperMaker";
+    public static final String TAG = "MrPaperMaker";
 
     /* Saturate static strings */
-	public static final int ALARM_ID = 5697;
-	public static final String CACHEIMG = "image-cached";
-	public static final String PREF = "com.lithidsw.mrpapermaker_preferences";
-	public static final String PREF_SATURATE_START = "pref_saturate_start";
-	public static final String PREF_SATURATE_FIRST_RUN_MAIN = "pref_saturate_first_run_main";
+    public static final int ALARM_ID = 5697;
+    public static final String CACHEIMG = "image-cached";
+    public static final String PREF = "com.lithidsw.mrpapermaker_preferences";
+    public static final String PREF_SATURATE_START = "pref_saturate_start";
+    public static final String PREF_SATURATE_FIRST_RUN_MAIN = "pref_saturate_first_run_main";
 
     /* Randomizer static strings */
     public static final String PREF_RANDOMIZER_FIRST_RUN_MAIN = "pref_randomizer_first_run_main";
@@ -62,7 +62,7 @@ public class C {
     public static final String TAG_SIZE_XLARGE = "size_xlarge";
     public static final String TAG_SIZE_LARGE = "size_large";
     public static final String TAG_SIZE_NORMAL = "size_normal";
-    public static final String TAG_DATE= "date";
+    public static final String TAG_DATE = "date";
     public static final String TAG_NAME = "name";
     public static final String TAG_DESC = "description";
     public static final String TAG_AUTHOR = "author";
