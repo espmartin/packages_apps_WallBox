@@ -191,7 +191,9 @@ public class WallpaperFragment extends Fragment {
                 @Override
                 public boolean onQueryTextChange(String s) {
                     if (s.length() < 2) {
-                        new SearchLoader().execute("");
+                        if (mSearch.isActionViewExpanded()) {
+                            new SearchLoader().execute("");
+                        }
                         return true;
                     } else {
                         return false;
