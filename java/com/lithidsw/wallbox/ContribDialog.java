@@ -27,14 +27,26 @@ public class ContribDialog {
         mContext = context;
     }
 
-    public void showContribAlert() {
+    public void showContribAlert(int type) {
+        String URL = "";
+        String title = "";
+        switch (type) {
+            case 0:
+                URL = C.URL_CONTRIB;
+                title = mContext.getString(R.string.contributors);
+                break;
+            case 1:
+                URL = C.URL_CHANGELOG;
+                title = mContext.getString(R.string.changelog);
+                break;
+        }
         LayoutInflater li = LayoutInflater.from(mContext);
         View view = li.inflate(R.layout.contribute, null);
         message = (TextView) view.findViewById(R.id.changelog_body);
         mLoad = (loadChange) new loadChange().executeOnExecutor(
-                AsyncTask.THREAD_POOL_EXECUTOR, C.URL_CONTRIB);
+                AsyncTask.THREAD_POOL_EXECUTOR, URL);
         new AlertDialog.Builder(mContext)
-                .setTitle(mContext.getString(R.string.contributors))
+                .setTitle(title)
                 .setIcon(mContext.getResources().getDrawable(R.drawable.ic_launcher))
                 .setView(view)
                 .setCancelable(false)

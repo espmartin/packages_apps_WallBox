@@ -73,6 +73,15 @@ limitations under the License.
                 android:onClick="aboutButton"/>
 
         <Button
+                android:id="@+id/btn_changelog"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0"
+                style="?android:attr/borderlessButtonStyle"
+                android:text="Changelog"
+                android:onClick="aboutButton"/>
+
+        <Button
                 android:id="@+id/btn_donate"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

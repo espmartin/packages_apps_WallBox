@@ -84,4 +84,5 @@ public class C {
 
     /* About */
     public static final String URL_CONTRIB = "https://raw.github.com/lithid/WallBox/master/contributers.htm";
+    public static final String URL_CHANGELOG = "https://raw.github.com/lithid/WallBox/master/changelog.htm";
 }

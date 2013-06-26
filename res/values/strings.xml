@@ -118,6 +118,7 @@ limitations under the License.
     <string name="toggle">Toggle</string>
     <string name="contribute">Contribute</string>
     <string name="contributors">Contributors</string>
+    <string name="changelog">Changelog</string>
     <string name="donate">Donate</string>
 
     <!-- Colors -->

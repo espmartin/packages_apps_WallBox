@@ -181,7 +181,10 @@ public class MainActivity extends FragmentActivity {
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://plus.google.com/u/0/communities/104381277142730834991")));
                 break;
             case R.id.btn_contribute:
-                new ContribDialog(MainActivity.this).showContribAlert();
+                new ContribDialog(MainActivity.this).showContribAlert(0);
+                break;
+            case R.id.btn_changelog:
+                new ContribDialog(MainActivity.this).showContribAlert(1);
                 break;
             case R.id.btn_donate:
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("http://goo.gl/511ca")));
