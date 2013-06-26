@@ -15,26 +15,26 @@ limitations under the License.
 -->
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ConfigAutoActivity" >
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context=".ConfigAutoActivity">
 
     <android.support.v4.view.ViewPager
-        android:id="@+id/pager"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true" >
+            android:id="@+id/pager"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true">
 
         <android.support.v4.view.PagerTitleStrip
-            android:id="@+id/pager_title_strip"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:background="@color/blue"
-            android:paddingBottom="1dp"
-            android:paddingTop="1dp"
-            android:textSize="14sp"/>
+                android:id="@+id/pager_title_strip"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:background="@color/blue"
+                android:paddingBottom="1dp"
+                android:paddingTop="1dp"
+                android:textSize="14sp"/>
     </android.support.v4.view.ViewPager>
 
 </RelativeLayout>

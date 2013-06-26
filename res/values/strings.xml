@@ -29,10 +29,14 @@ limitations under the License.
     <string name="stop">Stop</string>
     <string name="welcome">Welcome to Saturate!</string>
     <string name="close">Close</string>
-    <string name="saturate_description">This app will allow you to change the saturation every hour. Set the wallpaper, open this app, preview the different times and what the wallpaper will look like, then hit start! It is that easy!\n\nYou can stop this at any time by either changing the wallpaper, or opening this app and clicking stop. Enjoy!\n\n Please note: This app does not run all the time, it only runs quickly once at the top of each hour!</string>
+    <string name="saturate_description">This app will allow you to change the saturation every hour. Set the wallpaper,
+        open this app, preview the different times and what the wallpaper will look like, then hit start! It is that
+        easy!\n\nYou can stop this at any time by either changing the wallpaper, or opening this app and clicking stop.
+        Enjoy!\n\n Please note: This app does not run all the time, it only runs quickly once at the top of each hour!
+    </string>
     <string name="wallpaper_at">Wallpaper@</string>
     <string name="apply_error">Error applying wallpaper</string>
-    <string name="set_wallpaper">Setting wallpaper </string>
+    <string name="set_wallpaper">Setting wallpaper</string>
     <string name="live_wallpaper">"Using last known wallpaper, current is a live wallpaper"</string>
     <string name="started_sat">"Started auto saturation!"</string>
     <string name="stopped_sat">"Stopped auto saturation!"</string>
@@ -40,24 +44,27 @@ limitations under the License.
     <!-- Randomize Strings -->
     <string name="main_title_randomize">Randomize</string>
     <string name="randomizer_description">This app will allow you to change the random wallpapers.</string>
-    <string name="action_interval" >Set interval</string>
-    <string name="action_add" >Add image</string>
-    <string name="action_delete" >Remove image</string>
+    <string name="action_interval">Set interval</string>
+    <string name="action_add">Add image</string>
+    <string name="action_delete">Remove image</string>
 
     <!-- ColorWall Strings -->
     <string name="main_title_colorwall">ColorWall</string>
-    <string name="colorwall_description">This app will allow you to change the color of the wallpaper and set it.</string>
+    <string name="colorwall_description">This app will allow you to change the color of the wallpaper and set it.
+    </string>
 
     <!-- WallSnap Strings -->
     <string name="main_title_wallsnap">WallSnap</string>
-    <string name="wallsnap_description">This app will allow you to save the current wallpaper to external storage.</string>
+    <string name="wallsnap_description">This app will allow you to save the current wallpaper to external storage.
+    </string>
     <string name="save_wallpaper">Saving wallpaper</string>
     <string name="wallpaper_saved">Wallpaper saved</string>
     <string name="wallpaper_error">There was an error saving the wallpaper</string>
 
     <!-- Wallpapers Strings -->
     <string name="main_title_wallpapers">Wallpapers</string>
-    <string name="wallpaper_description">You can view, download and apply user submitted/contributed wallpapers.</string>
+    <string name="wallpaper_description">You can view, download and apply user submitted/contributed wallpapers.
+    </string>
     <string name="favorites_title">Favorites</string>
     <string name="downloaded_removed">All downloaded items have been removed</string>
     <string name="downloaded">Downloaded</string>
@@ -91,7 +98,9 @@ limitations under the License.
     <string name="pref_wallpaper_settings_clear_downloaded_summary">Clear the local downloaded database</string>
     <string name="pref_wallpaper_settings_clear_downloaded_title">Clear all downloaded</string>
     <string name="pref_wallpaper_check_boot_title">Check updates on boot</string>
-    <string name="pref_wallpaper_check_boot_summary">Check for updates after the phone boot up from a reboot or power on</string>
+    <string name="pref_wallpaper_check_boot_summary">Check for updates after the phone boot up from a reboot or power
+        on
+    </string>
     <string name="pref_wallpaper_check_interval_title">Check updates</string>
     <string name="pref_wallpaper_check_interval_summary">Check for updates twice a day</string>
     <string name="pref_wallpaper_check_save_sort_title">Remember sort</string>
@@ -99,7 +108,7 @@ limitations under the License.
 
     <!-- About Strings -->
     <string name="main_title_about">About</string>
-    <string name="about_author">Author:\nJeremie Long  (lithid)\nmrlithid@gmail.com</string>
+    <string name="about_author">Author:\nJeremie Long (lithid)\nmrlithid@gmail.com</string>
     <string name="about_version">Version:\n1.0</string>
     <string name="info">Info</string>
     <string name="about_notice">Just a little something something&#46;&#46;&#46; ya know for science.</string>

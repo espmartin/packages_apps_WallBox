@@ -17,37 +17,37 @@ limitations under the License.
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <PreferenceCategory
-        android:key="key_wallpaper_cat_manage"
-        android:title="@string/cat_options" >
+            android:key="key_wallpaper_cat_manage"
+            android:title="@string/cat_options">
         <CheckBoxPreference
-            android:key="key_wallpaper_check_boot"
-            android:summary="@string/pref_wallpaper_check_boot_summary"
-            android:title="@string/pref_wallpaper_check_boot_title" />
+                android:key="key_wallpaper_check_boot"
+                android:summary="@string/pref_wallpaper_check_boot_summary"
+                android:title="@string/pref_wallpaper_check_boot_title"/>
         <CheckBoxPreference
-            android:key="key_wallpaper_check_interval"
-            android:summary="@string/pref_wallpaper_check_interval_summary"
-            android:title="@string/pref_wallpaper_check_interval_title" />
+                android:key="key_wallpaper_check_interval"
+                android:summary="@string/pref_wallpaper_check_interval_summary"
+                android:title="@string/pref_wallpaper_check_interval_title"/>
         <CheckBoxPreference
-            android:key="key_wallpaper_check_save_sort"
-            android:summary="@string/pref_wallpaper_check_save_sort_summary"
-            android:title="@string/pref_wallpaper_check_save_sort_title" />
-        </PreferenceCategory>
-        
+                android:key="key_wallpaper_check_save_sort"
+                android:summary="@string/pref_wallpaper_check_save_sort_summary"
+                android:title="@string/pref_wallpaper_check_save_sort_title"/>
+    </PreferenceCategory>
+
     <PreferenceCategory
-        android:key="key_wallpaper_cat_manage"
-        android:title="@string/cat_manage" >
+            android:key="key_wallpaper_cat_manage"
+            android:title="@string/cat_manage">
         <Preference
-            android:key="key_wallpaper_clear_favorites"
-            android:summary="@string/pref_wallpaper_settings_clear_favorites_summary"
-            android:title="@string/pref_wallpaper_settings_clear_favorites_title" />
+                android:key="key_wallpaper_clear_favorites"
+                android:summary="@string/pref_wallpaper_settings_clear_favorites_summary"
+                android:title="@string/pref_wallpaper_settings_clear_favorites_title"/>
         <Preference
-            android:key="key_wallpaper_clear_downloaded"
-            android:summary="@string/pref_wallpaper_settings_clear_downloaded_summary"
-            android:title="@string/pref_wallpaper_settings_clear_downloaded_title" />
+                android:key="key_wallpaper_clear_downloaded"
+                android:summary="@string/pref_wallpaper_settings_clear_downloaded_summary"
+                android:title="@string/pref_wallpaper_settings_clear_downloaded_title"/>
         <Preference
-            android:key="key_wallpaper_info_screen"
-            android:title="Device Information:"
-            android:summary="Device Information:" />
+                android:key="key_wallpaper_info_screen"
+                android:title="Device Information:"
+                android:summary="Device Information:"/>
     </PreferenceCategory>
 
 </PreferenceScreen>

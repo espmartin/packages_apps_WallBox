@@ -15,10 +15,10 @@ limitations under the License.
 -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/top_btn_updates"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:orientation="vertical">
+              android:id="@+id/top_btn_updates"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:orientation="vertical">
 
     <TextView
             android:layout_width="fill_parent"
