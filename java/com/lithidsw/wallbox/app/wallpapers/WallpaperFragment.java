@@ -39,6 +39,7 @@ import android.widget.TextView;
 import com.lithidsw.wallbox.R;
 import com.lithidsw.wallbox.app.wallpapers.adapters.WallpaperAdapter;
 import com.lithidsw.wallbox.app.wallpapers.db.LocalDBHelper;
+import com.lithidsw.wallbox.app.wallpapers.db.LocalDataSource;
 import com.lithidsw.wallbox.app.wallpapers.loader.SyncHelper;
 import com.lithidsw.wallbox.utils.C;
 import com.lithidsw.wallbox.utils.CustomDialogs;
@@ -295,7 +296,8 @@ public class WallpaperFragment extends Fragment {
                         for (int i = 0; i < c.getCount(); i++) {
                             String[] item = getWallpaperItem(c);
                             aSearch.add(item);
-                            //mUtils.checkFiles(fa, wallSizeNormal.get(i), wallWid.get(i));
+                            String path = mUtils.getFilePathFromUrl(mUtils.getScreenSize(item[4], item[3], item[2]));
+                            new LocalDataSource(fa).checkItem(path, item[1]);
                             c.moveToNext();
                         }
                     }
@@ -359,7 +361,8 @@ public class WallpaperFragment extends Fragment {
                         for (int i = 0; i < c.getCount(); i++) {
                             String[] item = getWallpaperItem(c);
                             aWall.add(item);
-                            //mUtils.checkFiles(fa, wallSizeNormal.get(i), wallWid.get(i));
+                            String path = mUtils.getFilePathFromUrl(mUtils.getScreenSize(item[4], item[3], item[2]));
+                            new LocalDataSource(fa).checkItem(path, item[1]);
                             c.moveToNext();
                         }
                     }

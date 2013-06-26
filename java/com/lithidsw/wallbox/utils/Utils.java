@@ -283,6 +283,17 @@ public class Utils {
         }
     }
 
+    public String getFilePathFromUrl(String str) {
+        String fileNameExt = str.substring(str.lastIndexOf('/') + 1,
+                str.length());
+        File wallCache = new File(Environment.getExternalStorageDirectory()
+                .getAbsolutePath()
+                + "/"
+                + mContext.getApplicationContext().getString(R.string.app_name)
+                + "/");
+        return wallCache + "/" + fileNameExt;
+    }
+
     public float getFloat(int num) {
         final String[] sa = mContext.getResources().getStringArray(R.array.satValues);
         return Float.parseFloat(sa[num]);

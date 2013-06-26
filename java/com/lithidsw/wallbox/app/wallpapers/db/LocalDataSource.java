@@ -136,6 +136,15 @@ public class LocalDataSource {
         return path[1];
     }
 
+    public void checkItem(String path, String id) {
+        File f = new File(path);
+        if (!f.exists()) {
+            open();
+            deleteItem(Long.parseLong(id));
+            close();
+        }
+    }
+
     public void cleanTable() {
         open();
         Cursor cur;
