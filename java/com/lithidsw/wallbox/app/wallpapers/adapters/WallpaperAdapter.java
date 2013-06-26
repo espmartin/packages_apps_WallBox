@@ -26,6 +26,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.lithidsw.wallbox.R;
@@ -104,56 +105,39 @@ public class WallpaperAdapter extends BaseAdapter {
 
         final String url = mUtils.getScreenSize(FinalTxtSmall, FinalTxtNormal, FinalTxtLarge);
 
-        ImageView imgpreview = (ImageView) vi.findViewById(R.id.preview);
+        final ImageView imgpreview = (ImageView) vi.findViewById(R.id.preview);
         imageLoader.DisplayImage(FinalPreview, imgpreview);
 
-        TextView txtwid = (TextView) vi.findViewById(R.id.wid);
-        txtwid.setText(FinalWid);
-
-        TextView txtsize_large = (TextView) vi.findViewById(R.id.size_large);
-        txtsize_large.setText(FinalTxtLarge);
-
-        TextView txtsize_small = (TextView) vi.findViewById(R.id.size_small);
-        txtsize_small.setText(FinalTxtSmall);
-
-        TextView txtsize_normal = (TextView) vi.findViewById(R.id.size_normal);
-        txtsize_normal.setText(FinalTxtNormal);
-
-        TextView txtname = (TextView) vi.findViewById(R.id.name);
+       final TextView txtname = (TextView) vi.findViewById(R.id.name);
         txtname.setText(FinalName);
 
-        TextView txtauthor = (TextView) vi.findViewById(R.id.author);
+        final TextView txtauthor = (TextView) vi.findViewById(R.id.author);
         txtauthor.setText(FinalAuthor);
 
-        TextView txtcreated = (TextView) vi.findViewById(R.id.created);
-        txtcreated.setText(FinalTxtCreated);
+        final LinearLayout over_view = (LinearLayout) vi.findViewById(R.id.over_view);
 
-        final Button btnDownload = (Button) vi.findViewById(R.id.btn_download);
-        final Button btnApply = (Button) vi.findViewById(R.id.btn_apply);
-
-        resetDownloadData(FinalName, btnDownload, btnApply);
-
-        btnDownload.setOnClickListener(new OnClickListener() {
+        imgpreview.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View arg0) {
                 mDownload.startDownload(url, FinalName, FinalAuthor, Integer.parseInt(FinalWid));
-                resetDownloadData(FinalName, btnDownload, btnApply);
+                resetDownloadData(FinalName, over_view);
             }
         });
 
-        btnApply.setOnClickListener(new OnClickListener() {
+        over_view.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View arg0) {
                 Intent intent = mUtils.getWallpaperApplyIntent(FinalName, downloadDataSource.getLocalPath(FinalName, FinalWid), 0);
                 activity.startActivity(intent);
             }
         });
+
+        resetDownloadData(FinalName, over_view);
         return vi;
     }
 
-    private void resetDownloadData(String name, Button D, Button A) {
+    private void resetDownloadData(String name, LinearLayout view) {
         boolean is = downloadDataSource.isSingleItem(name, C.TAG_WALLPAPERS);
-        D.setVisibility(is ? View.GONE : View.VISIBLE);
-        A.setVisibility(is ? View.VISIBLE : View.GONE);
+        view.setVisibility(is ? View.VISIBLE : View.GONE);
     }
 }
