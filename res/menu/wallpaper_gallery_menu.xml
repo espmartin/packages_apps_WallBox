@@ -19,8 +19,14 @@ limitations under the License.
     <item
             android:id="@+id/menu_apply"
             android:icon="@drawable/ic_action_apply"
-            android:showAsAction="ifRoom|withText"
+            android:showAsAction="ifRoom"
             android:title="@string/apply"/>
+
+    <item
+            android:id="@+id/menu_delete"
+            android:icon="@drawable/ic_action_delete"
+            android:showAsAction="ifRoom"
+            android:title="@string/action_delete"/>
 
 
 </menu>

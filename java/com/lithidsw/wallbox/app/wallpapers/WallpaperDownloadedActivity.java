@@ -18,8 +18,10 @@ package com.lithidsw.wallbox.app.wallpapers;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -34,9 +36,11 @@ import android.view.MenuItem;
 
 import com.lithidsw.wallbox.R;
 import com.lithidsw.wallbox.app.wallpapers.db.LocalDBHelper;
+import com.lithidsw.wallbox.app.wallpapers.db.LocalDataSource;
 import com.lithidsw.wallbox.app.wallpapers.frag.GalFrag;
 import com.lithidsw.wallbox.utils.Utils;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class WallpaperDownloadedActivity extends FragmentActivity {
@@ -94,11 +98,51 @@ public class WallpaperDownloadedActivity extends FragmentActivity {
         return true;
     }
 
+    private void removeItem(int i) {
+        String message = "Removed "+wallName.get(i);
+
+        File filePath = new File(wallPreview.get(i));
+        if (filePath.exists()) {
+            if (filePath.delete()) {
+                new LocalDataSource(WallpaperDownloadedActivity.this)
+                        .deleteItem(Integer.parseInt(wallWid.get(i)));
+                mUtils.sendToast(message);
+                Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_MOUNTED, Uri.fromFile(filePath));
+                sendBroadcast(mediaScanIntent);
+            }
+        }
+
+        stopWallLoader();
+        Intent intent = getIntent();
+        finish();
+
+        if (wallPreview.size() > 1) {
+            startActivity(intent);
+        }
+    }
+
+    private void updateViews() {
+        if (wallWid.size() > 0) {
+            setContentView(R.layout.wallpaper_gallery_main);
+            mSectionsPagerAdapter = new SectionsPagerAdapter(
+                    getSupportFragmentManager());
+            mViewPager = (ViewPager) findViewById(R.id.pager);
+            mViewPager.setAdapter(mSectionsPagerAdapter);
+            mViewPager.setCurrentItem(0);
+        } else {
+            setTitle(title);
+            setContentView(R.layout.wallpaper_empty);
+        }
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
                 finish();
+                return true;
+            case R.id.menu_delete:
+                removeItem(mViewPager.getCurrentItem());
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -141,6 +185,14 @@ public class WallpaperDownloadedActivity extends FragmentActivity {
     class WallpaperLoader extends AsyncTask<String, String, String> {
 
         @Override
+        protected void onPreExecute() {
+            wallName.clear();
+            wallPreview.clear();
+            wallAuthor.clear();
+            wallWid.clear();
+        }
+
+        @Override
         protected String doInBackground(String... arg) {
             if (arg[0] == null) {
                 return null;
@@ -174,23 +226,7 @@ public class WallpaperDownloadedActivity extends FragmentActivity {
 
         @Override
         protected void onPostExecute(final String str) {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    if (wallWid.size() != 0) {
-                        setContentView(R.layout.wallpaper_gallery_main);
-                        mSectionsPagerAdapter = new SectionsPagerAdapter(
-                                getSupportFragmentManager());
-                        mViewPager = (ViewPager) findViewById(R.id.pager);
-                        mViewPager.setAdapter(mSectionsPagerAdapter);
-                        mViewPager.setCurrentItem(0);
-                    } else {
-                        setTitle(title);
-                        setContentView(R.layout.wallpaper_empty);
-                    }
-                }
-            });
-
+            updateViews();
         }
     }
 
